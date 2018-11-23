@@ -189,11 +189,6 @@ public class lab6_Principal extends javax.swing.JFrame {
                 cb_lista_modificarItemStateChanged(evt);
             }
         });
-        cb_lista_modificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_lista_modificarActionPerformed(evt);
-            }
-        });
         jPanel2.add(cb_lista_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 6, 105, 30));
 
         jLabel11.setText("Agregar un Delito");
@@ -345,10 +340,6 @@ public class lab6_Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jb_eliminarActionPerformed
 
-    private void cb_lista_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_lista_modificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_lista_modificarActionPerformed
-
     private void cb_lista_modificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_lista_modificarItemStateChanged
         if (evt.getStateChange() == 2) {
             DefaultComboBoxModel modelocombo = (DefaultComboBoxModel) cb_lista_modificar.getModel();
@@ -369,7 +360,7 @@ public class lab6_Principal extends javax.swing.JFrame {
         criM.setNombre(tf_nombreM.getText());
         criM.setEdad(Integer.parseInt(tf_edadM.getText()));
         criM.setNumero_celda((Integer) sp_celdaM.getValue());
-        criM.setNumero_identidad(Integer.parseInt(tf_id.getText()));
+        criM.setNumero_identidad(Integer.parseInt(tf_idM.getText()));
         criM.setAnos_cumplir((Integer) sp_aniosM.getValue());
         tf_nombreM.setText("");
         tf_idM.setText("");
