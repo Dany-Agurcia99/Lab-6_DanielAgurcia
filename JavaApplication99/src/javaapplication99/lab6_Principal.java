@@ -24,19 +24,6 @@ public class lab6_Principal extends javax.swing.JFrame {
      * Creates new form lab6_Principal
      */
     public lab6_Principal() {
-        admin_criminal ap = new admin_criminal("./Criminales.txt");
-        ap.cargarArchivo();
-        for (Criminal temp : ap.getLista_criminales()) {
-            DefaultComboBoxModel modelocombo = (DefaultComboBoxModel) cb_lista_modificar.getModel();
-            modelocombo.addElement(temp);
-            cb_lista_modificar.setModel(modelocombo);
-            DefaultListModel modelolista = (DefaultListModel) jl_eliminar_criminales.getModel();
-            modelolista.addElement(temp);
-            jl_eliminar_criminales.setModel(modelolista);
-            DefaultListModel modelolista2 = (DefaultListModel) jl_expedientes.getModel();
-            modelolista2.addElement(temp);
-            jl_expedientes.setModel(modelolista2);
-        }
         initComponents();
 
     }
@@ -365,7 +352,7 @@ public class lab6_Principal extends javax.swing.JFrame {
     private void cb_lista_modificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_lista_modificarItemStateChanged
         if (evt.getStateChange() == 2) {
             DefaultComboBoxModel modelocombo = (DefaultComboBoxModel) cb_lista_modificar.getModel();
-            cm = (Criminal) modelocombo.getSelectedItem();
+            Criminal cm = (Criminal) modelocombo.getSelectedItem();
             cb_lista_modificar.setModel(modelocombo);
             tf_nombreM.setText(cm.getNombre());
             tf_edadM.setText(String.valueOf(cm.getEdad()));
@@ -425,7 +412,6 @@ public class lab6_Principal extends javax.swing.JFrame {
             }
         });
     }
-    Criminal cm = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cb_lista_modificar;
     private javax.swing.JComboBox<String> jComboBox1;
