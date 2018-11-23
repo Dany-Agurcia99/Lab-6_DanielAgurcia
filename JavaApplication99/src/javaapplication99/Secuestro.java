@@ -35,4 +35,9 @@ public class Secuestro extends Delito {
         this.edad_victima = edad_victima;
     }
 
+    @Override
+    public String toString() {
+        return tiempo_secuestrado + " Dias " + ", " + edad_victima;
+    }
+
 }

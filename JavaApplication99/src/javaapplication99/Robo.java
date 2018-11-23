@@ -35,4 +35,9 @@ public class Robo extends Delito {
         this.valor_objeto = valor_objeto;
     }
 
+    @Override
+    public String toString() {
+        return objeto_robado + ", " + valor_objeto;
+    }
+
 }

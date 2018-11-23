@@ -35,4 +35,9 @@ public class Trafico extends Delito {
         this.peso_kg = peso_kg;
     }
 
+    @Override
+    public String toString() {
+        return nombre_producto + ", " + peso_kg + "Kg";
+    }
+
 }

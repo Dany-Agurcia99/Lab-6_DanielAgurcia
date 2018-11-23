@@ -32,4 +32,9 @@ public class Asesinato extends Delito {
         this.victimas = victimas;
     }
 
+    @Override
+    public String toString() {
+        return arma + ", " + victimas;
+    }
+
 }

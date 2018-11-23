@@ -5,7 +5,14 @@
  */
 package javaapplication99;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.ComboBox;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -17,7 +24,21 @@ public class lab6_Principal extends javax.swing.JFrame {
      * Creates new form lab6_Principal
      */
     public lab6_Principal() {
+        admin_criminal ap = new admin_criminal("./Criminales.txt");
+        ap.cargarArchivo();
+        for (Criminal temp : ap.getLista_criminales()) {
+            DefaultComboBoxModel modelocombo = (DefaultComboBoxModel) cb_lista_modificar.getModel();
+            modelocombo.addElement(temp);
+            cb_lista_modificar.setModel(modelocombo);
+            DefaultListModel modelolista = (DefaultListModel) jl_eliminar_criminales.getModel();
+            modelolista.addElement(temp);
+            jl_eliminar_criminales.setModel(modelolista);
+            DefaultListModel modelolista2 = (DefaultListModel) jl_expedientes.getModel();
+            modelolista2.addElement(temp);
+            jl_expedientes.setModel(modelolista2);
+        }
         initComponents();
+
     }
 
     /**
@@ -55,7 +76,8 @@ public class lab6_Principal extends javax.swing.JFrame {
         sp_aniosM = new javax.swing.JSpinner();
         jb_modificar = new javax.swing.JButton();
         cb_lista_modificar = new javax.swing.JComboBox<>();
-        jb_agregar_delito = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jl_eliminar_criminales = new javax.swing.JList<>();
@@ -66,7 +88,6 @@ public class lab6_Principal extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         ta_exp = new javax.swing.JTextArea();
         jb_ver_expe = new javax.swing.JButton();
-        jb_crear_exp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +102,11 @@ public class lab6_Principal extends javax.swing.JFrame {
         jLabel5.setText("Anios a Cumplir");
 
         jb_agregar.setText("Agregar Criminal");
+        jb_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_agregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,7 +135,7 @@ public class lab6_Principal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(141, 141, 141)
                 .addComponent(jb_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(231, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,18 +190,42 @@ public class lab6_Principal extends javax.swing.JFrame {
         jPanel2.add(sp_aniosM, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 240, 108, -1));
 
         jb_modificar.setText("Modificar");
+        jb_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_modificarActionPerformed(evt);
+            }
+        });
         jPanel2.add(jb_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 110, 50));
 
+        cb_lista_modificar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_lista_modificarItemStateChanged(evt);
+            }
+        });
+        cb_lista_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_lista_modificarActionPerformed(evt);
+            }
+        });
         jPanel2.add(cb_lista_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 6, 105, 30));
 
-        jb_agregar_delito.setText("Agregar un Delito");
-        jPanel2.add(jb_agregar_delito, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 130, 80));
+        jLabel11.setText("Agregar un Delito");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Asesinato", "Violacion", "Robo", "Trafico", "Secuestro" }));
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 140, -1));
 
         jTabbedPane1.addTab("Modificar Criminal", jPanel2);
 
+        jl_eliminar_criminales.setModel(new DefaultListModel());
         jScrollPane1.setViewportView(jl_eliminar_criminales);
 
         jb_eliminar.setText("Eliminar");
+        jb_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_eliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -189,7 +239,7 @@ public class lab6_Principal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(161, 161, 161)
                         .addComponent(jb_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,6 +255,7 @@ public class lab6_Principal extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jl_expedientes.setModel(new DefaultListModel());
         jScrollPane2.setViewportView(jl_expedientes);
 
         jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 6, 133, 321));
@@ -213,13 +264,15 @@ public class lab6_Principal extends javax.swing.JFrame {
         ta_exp.setRows(5);
         jScrollPane3.setViewportView(ta_exp);
 
-        jPanel4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 6, -1, 321));
+        jPanel4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 6, 350, 321));
 
-        jb_ver_expe.setText("Ver Expediente");
-        jPanel4.add(jb_ver_expe, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 119, 55));
-
-        jb_crear_exp.setText("Crear Expediente");
-        jPanel4.add(jb_crear_exp, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 150, 50));
+        jb_ver_expe.setText("Crear Expediente");
+        jb_ver_expe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_ver_expeActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jb_ver_expe, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 150, 55));
 
         jTabbedPane1.addTab("Expedientes", jPanel4);
 
@@ -236,6 +289,107 @@ public class lab6_Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jb_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_agregarActionPerformed
+        try {
+            Criminal nuevoCriminal = new Criminal(tf_nombre.getText(), Integer.parseInt(tf_edad.getText()), Integer.parseInt(tf_id.getText()), (Integer) sp_celda.getValue(), (Integer) sp_anios.getValue());
+            admin_criminal ap = new admin_criminal("./Criminales.txt");
+            ap.cargarArchivo();
+            ap.getLista_criminales().add(nuevoCriminal);
+            DefaultComboBoxModel modelocombo = (DefaultComboBoxModel) cb_lista_modificar.getModel();
+            modelocombo.addElement(nuevoCriminal);
+            cb_lista_modificar.setModel(modelocombo);
+            DefaultListModel modelolista = (DefaultListModel) jl_eliminar_criminales.getModel();
+            modelolista.addElement(nuevoCriminal);
+            jl_eliminar_criminales.setModel(modelolista);
+            DefaultListModel modelolista2 = (DefaultListModel) jl_expedientes.getModel();
+            modelolista2.addElement(nuevoCriminal);
+            jl_expedientes.setModel(modelolista2);
+            ap.escribirArchivo();
+            tf_nombre.setText("");
+            tf_id.setText("");
+            tf_edad.setText("");
+            sp_celda.setValue(0);
+            sp_anios.setValue(0);
+
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_jb_agregarActionPerformed
+
+    private void jb_ver_expeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_ver_expeActionPerformed
+        if (jl_expedientes.getSelectedIndex() >= 0) {
+            try {
+                ta_exp.setText("");
+                DefaultListModel modeloLista = (DefaultListModel) jl_expedientes.getModel();
+                Criminal seleccionado = (Criminal) modeloLista.get(jl_expedientes.getSelectedIndex());
+                jl_expedientes.setModel(modeloLista);
+                ta_exp.setText(seleccionado.Expediente());
+                seleccionado.setExp(ta_exp.getText());
+                admin_criminal ap = new admin_criminal("./Expedientes.txt");
+                ap.getLista_criminales().add(seleccionado);
+                ap.escribirArchivoExp();
+            } catch (IOException ex) {
+                Logger.getLogger(lab6_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jb_ver_expeActionPerformed
+
+    private void jb_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_eliminarActionPerformed
+        if (jl_eliminar_criminales.getSelectedIndex() >= 0) {
+            try {
+                admin_criminal ap = new admin_criminal("./Criminales.txt");
+                DefaultListModel modeloLista = (DefaultListModel) jl_eliminar_criminales.getModel();
+                Criminal seleccionado = (Criminal) modeloLista.get(jl_expedientes.getSelectedIndex() + 1);
+                jl_eliminar_criminales.setModel(modeloLista);
+                DefaultComboBoxModel modelocombo = (DefaultComboBoxModel) cb_lista_modificar.getModel();
+                modelocombo.removeElement(seleccionado);
+                cb_lista_modificar.setModel(modelocombo);
+                DefaultListModel modelolista = (DefaultListModel) jl_eliminar_criminales.getModel();
+                modelolista.removeElement(seleccionado);
+                jl_eliminar_criminales.setModel(modelolista);
+                DefaultListModel modelolista2 = (DefaultListModel) jl_expedientes.getModel();
+                modelolista2.removeElement(seleccionado);
+                jl_expedientes.setModel(modelolista2);
+                ap.getLista_criminales().remove(seleccionado);
+                ap.escribirArchivo();
+            } catch (IOException ex) {
+                Logger.getLogger(lab6_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jb_eliminarActionPerformed
+
+    private void cb_lista_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_lista_modificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_lista_modificarActionPerformed
+
+    private void cb_lista_modificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_lista_modificarItemStateChanged
+        if (evt.getStateChange() == 2) {
+            DefaultComboBoxModel modelocombo = (DefaultComboBoxModel) cb_lista_modificar.getModel();
+            cm = (Criminal) modelocombo.getSelectedItem();
+            cb_lista_modificar.setModel(modelocombo);
+            tf_nombreM.setText(cm.getNombre());
+            tf_edadM.setText(String.valueOf(cm.getEdad()));
+            tf_idM.setText(String.valueOf(cm.getNumero_identidad()));
+            sp_celdaM.setValue(cm.getNumero_celda());
+            sp_aniosM.setValue(cm.getAnos_cumplir());
+        }
+    }//GEN-LAST:event_cb_lista_modificarItemStateChanged
+
+    private void jb_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_modificarActionPerformed
+        DefaultComboBoxModel modelocombo = (DefaultComboBoxModel) cb_lista_modificar.getModel();
+        Criminal criM = (Criminal) modelocombo.getSelectedItem();
+        cb_lista_modificar.setModel(modelocombo);
+        criM.setNombre(tf_nombreM.getText());
+        criM.setEdad(Integer.parseInt(tf_edadM.getText()));
+        criM.setNumero_celda((Integer) sp_celdaM.getValue());
+        criM.setNumero_identidad(Integer.parseInt(tf_id.getText()));
+        criM.setAnos_cumplir((Integer) sp_aniosM.getValue());
+        tf_nombreM.setText("");
+        tf_idM.setText("");
+        tf_edadM.setText("");
+        sp_celdaM.setValue(0);
+        sp_aniosM.setValue(0);
+    }//GEN-LAST:event_jb_modificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,12 +425,13 @@ public class lab6_Principal extends javax.swing.JFrame {
             }
         });
     }
-    ArrayList<Criminal> lista_criminales = new ArrayList();
-    
+    Criminal cm = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cb_lista_modificar;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -294,8 +449,6 @@ public class lab6_Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton jb_agregar;
-    private javax.swing.JButton jb_agregar_delito;
-    private javax.swing.JButton jb_crear_exp;
     private javax.swing.JButton jb_eliminar;
     private javax.swing.JButton jb_modificar;
     private javax.swing.JButton jb_ver_expe;

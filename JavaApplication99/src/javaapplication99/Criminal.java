@@ -1,9 +1,11 @@
 package javaapplication99;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Criminal {
 
+    String exp;
     String nombre;
     int edad;
     int numero_identidad;
@@ -20,6 +22,14 @@ public class Criminal {
         this.numero_identidad = numero_identidad;
         this.numero_celda = numero_celda;
         this.anos_cumplir = anos_cumplir;
+    }
+
+    public String getExp() {
+        return exp;
+    }
+
+    public void setExp(String exp) {
+        this.exp = exp;
     }
 
     public String getNombre() {
@@ -75,4 +85,13 @@ public class Criminal {
         return "Criminal: " + nombre;
     }
 
+    public String Expediente() {
+        return "Expediente\n" + new Date() + "Nombre: " + nombre + "\n"
+                + "Edad: " + edad + " Anios\n"
+                + "Numero de ID: " + numero_identidad + "\n"
+                + "Numero de Celda: " + numero_celda + "\n" + "\n"
+                + "Delitos:\n"
+                + lista_delitos + "\n"
+                + "Anios por Cumplir: " + anos_cumplir;
+    }
 }

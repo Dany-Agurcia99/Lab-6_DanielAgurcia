@@ -5,7 +5,7 @@ public class Delito {
     String descripcion;
     String gravedad;
     String culpable;
-
+    
     public Delito() {
     }
 
@@ -41,7 +41,7 @@ public class Delito {
 
     @Override
     public String toString() {
-        return "Delito{" + "delito" + '}';
+        return descripcion + ", " + gravedad + ", " + culpable + ", ";
     }
 
 }

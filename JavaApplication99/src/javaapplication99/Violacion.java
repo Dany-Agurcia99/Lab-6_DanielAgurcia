@@ -24,4 +24,9 @@ public class Violacion extends Delito {
         this.edad_victima = edad_victima;
     }
 
+    @Override
+    public String toString() {
+        return "" + edad_victima;
+    }
+
 }
