@@ -1,6 +1,6 @@
-package lab6_danielagurcia;
+package javaapplication99;
 
-public class Lab6_DanielAgurcia {
+public class JavaApplication99 {
 
     public static void main(String[] args) {
         
