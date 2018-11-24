@@ -24,8 +24,22 @@ public class lab6_Principal extends javax.swing.JFrame {
      * Creates new form lab6_Principal
      */
     public lab6_Principal() {
+        
         initComponents();
-
+        admin_criminal ap = new admin_criminal("./Criminales.txt");
+        ap.cargarArchivo();
+        ArrayList<Criminal> temp = ap.getLista_criminales();
+        DefaultComboBoxModel modelocombo = (DefaultComboBoxModel) cb_lista_modificar.getModel();
+        DefaultListModel modelolista = (DefaultListModel) jl_eliminar_criminales.getModel();
+        DefaultListModel modelolista2 = (DefaultListModel) jl_expedientes.getModel();
+        for (Criminal temp2 : temp) {
+            modelocombo.addElement(temp2);
+            modelolista.addElement(temp2);
+            modelolista2.addElement(temp2);
+        }
+        jl_expedientes.setModel(modelolista2);
+        cb_lista_modificar.setModel(modelocombo);
+        jl_eliminar_criminales.setModel(modelolista);
     }
 
     /**
@@ -293,7 +307,7 @@ public class lab6_Principal extends javax.swing.JFrame {
             tf_edad.setText("");
             sp_celda.setValue(0);
             sp_anios.setValue(0);
-
+            
         } catch (IOException ex) {
         }
     }//GEN-LAST:event_jb_agregarActionPerformed

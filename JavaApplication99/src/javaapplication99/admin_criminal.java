@@ -60,25 +60,31 @@ public class admin_criminal {
                     while (sc2.hasNext()) {
                         if (sc2.next().equals("Asesinato")) {
                             tempArray.add(new Asesinato(sc2.next(), sc2.nextInt(), sc2.next(), sc2.next(), sc2.next()));
+                            break;
                         } else if (sc2.next().equals("Violacion")) {
                             tempArray.add(new Violacion(sc2.nextInt(), sc2.next(), sc2.next(), sc2.next()));
+                            break;
                         } else if (sc2.next().equals("Robo")) {
                             tempArray.add(new Robo(sc2.next(), sc2.nextInt(), sc2.next(), sc2.next(), sc2.next()));
+                            break;
                         } else if (sc2.next().equals("Trafico")) {
                             tempArray.add(new Trafico(sc2.next(), sc2.nextInt(), sc2.next(), sc2.next(), sc2.next()));
+                            break;
                         } else if (sc2.next().equals("Secuestro")) {
                             tempArray.add(new Secuestro(sc2.nextInt(), sc2.nextInt(), sc2.next(), sc2.next(), sc2.next()));
+                            break;
                         } else {
                             tempArray.add(new Secuestro(sc2.nextInt(), sc2.nextInt(), sc2.next(), sc2.next(), sc2.next()));
+                            break;
                         }
-
                     }//finwhile
                     sc2.close();
                     anios = sc.nextInt();
-                    lista_criminales.add(new Criminal(nombre, edad, edad, celda, anios));
+                    lista_criminales.add(new Criminal(nombre, edad, id, celda, anios));
                     lista_criminales.get(lista_criminales.size() - 1).setLista_delitos(tempArray);
                 }//finwhile
             } catch (Exception e) {
+                System.out.println(e);
             }
             sc.close();
         }
